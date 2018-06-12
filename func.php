@@ -49,14 +49,18 @@ function testarBanco(){
 }
 
 function testarRedis() {
-  if ($redis = new Redis()) {
-    if($redis->connect( 'localhost', 6379, 5 )) {
-      echo "Foi possível conectar ao banco <strong>\"Redis\"</strong>. <br>";
+  try {
+    if (!($redis = new Redis())) {
+      throw new Exception("<strong style='color: #cd0000;''><i>ERRO:</i></strong> O <strong>\"Redis\"</strong> não está instalado. <br>");
     } else {
-      echo "<strong style='color: #cd0000;''><i>ERRO:</i></strong> Não foi possível conectar ao banco <strong>\"Redis\"</strong>. <br>";
+      if($redis->connect( 'localhost', 6379, 5 )) {
+        echo "Foi possível conectar ao banco <strong>\"Redis\"</strong>. <br>";
+      } else {
+        echo "<strong style='color: #cd0000;''><i>ERRO:</i></strong> Não foi possível conectar ao banco <strong>\"Redis\"</strong>. <br>";
+      }
     }
-  } else {
-    echo "<strong style='color: #cd0000;''><i>ERRO:</i></strong>Redis está instalado.<strong>\"Redis\"</strong>. <br>";
+  } catch(Exception $e) {
+    echo $e;
   }
 }
 
