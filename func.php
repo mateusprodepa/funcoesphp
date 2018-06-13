@@ -78,5 +78,60 @@ function modulosApache($arr) {
   }
 }
 
+function json($nome) {
+  $hash = MD5($nome);
+  if(file_exists("$hash.json") && filesize("$hash.json") > 10) {
+    echo "JSON $nome gerado e com conteúdo";
+  } elseif (file_exists("$hash.json") && filesize("$hash.json") <= 10) {
+    echo "JSON $nome gerado, mas está vazio";
+  } elseif (!file_exists("$hash.json")) {
+    echo "JSON $nome não encontrado";
+  }
+}
+
+function verificarJson($arr) {
+  foreach ($arr as $key) {
+    json($key);
+  }
+}
+
+$arquivosJson = array(
+  "LISTA_TIPO_DESPACHO",
+  "DESPACHO_ACAO_OCORRENCIA",
+  "DESPACHO_ACAO_PROCEDIMENTO",
+  "COMBO_PERICIA_REGIONAL",
+  "COMBO_PERICIA_AREA_PERICIAL",
+  "COMBO_PERICIA_TIPO_EXAME",
+  "LISTA_TPL_CAMPO",
+  "BOP_CATEGORIA",
+  "COMBO_NATUREZA_BOP_CATEGORIA",
+  "COMBO_NATUREZA",
+  "COMBO_MEIO_EMPREGADO",
+  "COMBO_CAUSA_PRESUMIVEL",
+  "COMBO_GRUPO_OCORRENCIA",
+  "COMBO_LOCALOCORRENCIA",
+  "COMBO_UNIDADE",
+  "COMPO_BOP_STATUS",
+  "COMBO_PROCEDIMENTO_STATUS",
+  "COMPO_TIPO_PROCEDIMENTO",
+  "COMBO_PROCEDIMENTO_ORIGEM",
+  "COMBO_TIPO_PESSOA_ATUACAO",
+  "COMBO_ESTADOCIVIL",
+  "COMBO_ESCOLARIDADE",
+  "COMBO_PROFISSAO",
+  "COMBO_MORADIA",
+  "COMBO_GRUPO_SOCIAL",
+  "COMBO_GRUPO_SOCIAL",
+  "COMBO_SEXO",
+  "COMBO_MODUS_OPERANDI",
+  "COMBO_TIPO_CONTATO",
+  "COMBO_TIPODOCUMENTO"
+);
+
+function testarJson() {
+  global $arquivosJson;
+  verificarJson($arquivosJson);
+};
+
 call_user_func($_POST['function']);
 ?>
